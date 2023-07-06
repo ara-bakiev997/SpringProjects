@@ -34,7 +34,6 @@ public class WebLibraryConfig implements WebMvcConfigurer {
     this.environment = environment;
   }
 
-
   @Bean
   public SpringResourceTemplateResolver templateResolver() {
     SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -50,6 +49,13 @@ public class WebLibraryConfig implements WebMvcConfigurer {
     engine.setTemplateResolver(templateResolver());
     engine.setEnableSpringELCompiler(true);
     return engine;
+  }
+
+  @Override
+  public void configureViewResolvers(ViewResolverRegistry registry) {
+    ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+    resolver.setTemplateEngine(templateEngine());
+    registry.viewResolver(resolver);
   }
 
   @Bean
