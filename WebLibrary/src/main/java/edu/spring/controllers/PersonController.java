@@ -1,7 +1,9 @@
 package edu.spring.controllers;
 
 import edu.spring.dao.PersonDAO;
+import edu.spring.models.Book;
 import edu.spring.models.Person;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +36,12 @@ public class PersonController {
   @GetMapping("/{id}")
   public String show(@PathVariable("id") int id, Model model) {
     model.addAttribute("person", personDAO.getPersonById(id));
+
+    List<Book> books = personDAO.getPersonBooksById(id);
+    System.out.println(books);
+    System.out.println(books.isEmpty());
+    model.addAttribute("books", books);
+
     return "/people/show";
   }
 

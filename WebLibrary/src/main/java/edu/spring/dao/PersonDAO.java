@@ -1,5 +1,6 @@
 package edu.spring.dao;
 
+import edu.spring.models.Book;
 import edu.spring.models.Person;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,12 @@ public class PersonDAO {
 
   public void delete(int id) {
     jdbcTemplate.update("delete from Person where id = ?;", id);
+  }
+
+  public List<Book> getPersonBooksById(int id) {
+    return jdbcTemplate.query("select b.id, b.name, b.author, b.year, b.person_id\n"
+        + "from person p\n"
+        + "join book b on p.id = b.person_id\n"
+        + "where p.id = ?;", new BeanPropertyRowMapper<>(Book.class), id);
   }
 }
