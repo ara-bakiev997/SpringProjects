@@ -1,5 +1,6 @@
 package edu.spring.controllers;
 
+import edu.spring.dao.BookDAO;
 import edu.spring.dao.PersonDAO;
 import edu.spring.models.Book;
 import edu.spring.models.Person;
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PersonController {
 
   private final PersonDAO personDAO;
+  private final BookDAO bookDAO;
 
   @Autowired
-  public PersonController(PersonDAO personDAO) {
+  public PersonController(PersonDAO personDAO, BookDAO bookDAO) {
     this.personDAO = personDAO;
+    this.bookDAO = bookDAO;
   }
 
   @GetMapping()
@@ -36,12 +39,7 @@ public class PersonController {
   @GetMapping("/{id}")
   public String show(@PathVariable("id") int id, Model model) {
     model.addAttribute("person", personDAO.getPersonById(id));
-
-    List<Book> books = personDAO.getPersonBooksById(id);
-    System.out.println(books);
-    System.out.println(books.isEmpty());
-    model.addAttribute("books", books);
-
+    model.addAttribute("books", bookDAO.getPersonBooksById(id));
     return "/people/show";
   }
 

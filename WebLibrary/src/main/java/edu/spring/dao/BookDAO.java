@@ -24,7 +24,7 @@ public class BookDAO {
   }
 
 
-  public Object getBookById(int id) {
+  public Book getBookById(int id) {
     return jdbcTemplate.queryForObject("select * from book where id = ?;",
         new BeanPropertyRowMapper<>(Book.class),
         id
@@ -38,12 +38,23 @@ public class BookDAO {
 
   public void update(int id, Book book) {
     jdbcTemplate.update(
-        "update book set name = ?, author = ?, year = ?, person_id = ? where id = ?",
+        "update book set name = ?, author = ?, year = ?, person_id = ? where id = ?;",
         book.getName(), book.getAuthor(), book.getYear(), book.getPersonId(), id
     );
   }
 
   public void delete(int id) {
     jdbcTemplate.update("delete from book where id = ?;", id);
+  }
+
+  public List<Book> getPersonBooksById(int id) {
+    return jdbcTemplate.query("select b.id, b.name, b.author, b.year, b.person_id\n"
+        + "from person p\n"
+        + "join book b on p.id = b.person_id\n"
+        + "where p.id = ?;", new BeanPropertyRowMapper<>(Book.class), id);
+  }
+
+  public void unlinkBookById(int id) {
+    jdbcTemplate.update("update book set person_id = ? where id = ?;", null, id);
   }
 }

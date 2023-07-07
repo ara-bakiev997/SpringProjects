@@ -10,6 +10,17 @@
 <p th:text="'Book Author: ' + ${book.getAuthor()}">VALUE</p>
 <p th:text="'Book Year: ' + ${book.getYear()}">VALUE</p>
 
+<div th:unless="${book.getPersonId()}">
+  <p>This book is free. To whom to appoint?</p>
+</div>
+<div th:if="${book.getPersonId()}">
+  <p th:text="'The book is now: ' + ${person.getFullName()}" ></p>
+  <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}">
+    <input type="submit" value="Release the book"/>
+  </form>
+</div>
+
+<hr>
 <form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
   <input type="submit" value="Edit book"/>
 </form>
