@@ -42,4 +42,8 @@ public class BookDAO {
         book.getName(), book.getAuthor(), book.getYear(), book.getPersonId(), id
     );
   }
+
+  public void delete(int id) {
+    jdbcTemplate.update("delete from book where id = ?;", id);
+  }
 }
