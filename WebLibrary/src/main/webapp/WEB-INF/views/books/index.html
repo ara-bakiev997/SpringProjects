@@ -11,6 +11,8 @@
      th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">
   </a>
 </div>
+<hr>
+<a th:href="@{/books/new}">Save new book</a>
 
 </body>
 </html>
