@@ -32,4 +32,10 @@ public class PersonDAO {
     jdbcTemplate.update("insert into Person (full_name, year) values (?, ?);",
         person.getFullName(), person.getYear());
   }
+
+  public void update(int id, Person person) {
+    jdbcTemplate.update("update Person set full_name = ?, year = ? where id = ?;",
+        person.getFullName(), person.getYear(), id
+    );
+  }
 }
