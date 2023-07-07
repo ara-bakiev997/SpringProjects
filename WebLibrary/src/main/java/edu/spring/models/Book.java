@@ -1,5 +1,6 @@
 package edu.spring.models;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Person {
+public class Book {
 
   private int id;
-  private String fullName;
+  private String name;
+  private String author;
   private int year;
+  private int personId;
 }

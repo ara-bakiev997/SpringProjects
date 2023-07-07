@@ -5,15 +5,18 @@
   <title>People</title>
 </head>
 <body>
-<p>Hello World</p>
 
 <div th:each="person : ${people}">
   <a th:href="@{/people/{id}(id=${person.getId()})}"
      th:text="${person.getFullName() + ', ' + person.getYear()}">
-    user
   </a>
-
 </div>
+
+<hr>
+
+<form th:method="GET" th:action="@{/people/new}">
+  <input type="submit" value="Create new person"/>
+</form>
 
 
 </body>
