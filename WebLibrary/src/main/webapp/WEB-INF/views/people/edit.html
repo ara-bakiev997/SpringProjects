@@ -7,14 +7,14 @@
 <body>
 
 <form th:method="PUT" th:object="${person}" th:action="@{/people/{id}(id=${person.getId()})}">
-  <label for="fullName">Edit full name:</label>
+  <label for="fullName">Введите ФИО:</label>
   <input id="fullName" type="text" th:field="*{fullName}"/>
   <br>
 
-  <label for="year">Edit year of birth:</label>
+  <label for="year">Введите год рождения:</label>
   <input id="year" type="text" th:field="*{year}"/>
   <br>
-  <input type="submit" value="Create!"/>
+  <input type="submit" value="Редактировать!"/>
 
 </form>
 
