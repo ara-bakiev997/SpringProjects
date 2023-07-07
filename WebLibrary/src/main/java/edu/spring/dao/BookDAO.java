@@ -18,7 +18,6 @@ public class BookDAO {
   }
 
   public List<Book> getBooks() {
-    System.out.printf("dao");
     List<Book> books = jdbcTemplate.query("select * from book;",
         new BeanPropertyRowMapper<>(Book.class));
 
@@ -29,4 +28,10 @@ public class BookDAO {
   }
 
 
+  public Object getBookById(int id) {
+    return jdbcTemplate.queryForObject("select * from book where id = ?;",
+        new BeanPropertyRowMapper<>(Book.class),
+        id
+    );
+  }
 }
