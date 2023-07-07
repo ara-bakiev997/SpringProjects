@@ -4,6 +4,7 @@ package edu.spring.controllers;
 import edu.spring.dao.BookDAO;
 import edu.spring.dao.PersonDAO;
 import edu.spring.models.Book;
+import edu.spring.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,8 +39,6 @@ public class BookController {
   @GetMapping("/{id}")
   public String show(@PathVariable("id") int id, Model model) {
     Book book = bookDAO.getBookById(id);
-
-    System.out.println("Person id = " + book.getPersonId());
 
     model.addAttribute("book", book);
     if (book.getPersonId() == null) {
@@ -79,10 +78,17 @@ public class BookController {
     return "redirect:/books";
   }
 
-  @PatchMapping("/{id}/release")
-  public String releaseBook(@PathVariable("id") int id) {
+  @PatchMapping("/{id}/unlink")
+  public String unlinkBook(@PathVariable("id") int id) {
     bookDAO.unlinkBookById(id);
     return "redirect:/books";
   }
+
+  @PatchMapping("/{id}/link")
+  public String linkBook(@PathVariable("id") int id, @ModelAttribute("book") Book book) {
+    bookDAO.linkBookById(id, book.getPersonId());
+    return "redirect:/books";
+  }
+
 
 }

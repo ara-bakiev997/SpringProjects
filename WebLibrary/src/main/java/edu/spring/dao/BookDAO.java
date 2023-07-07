@@ -1,6 +1,7 @@
 package edu.spring.dao;
 
 import edu.spring.models.Book;
+import edu.spring.models.Person;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -56,5 +57,9 @@ public class BookDAO {
 
   public void unlinkBookById(int id) {
     jdbcTemplate.update("update book set person_id = ? where id = ?;", null, id);
+  }
+
+  public void linkBookById(int id, int personId) {
+    jdbcTemplate.update("update book set person_id = ? where id = ?;", personId, id);
   }
 }

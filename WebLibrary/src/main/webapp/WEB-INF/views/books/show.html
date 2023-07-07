@@ -12,10 +12,20 @@
 
 <div th:unless="${book.getPersonId()}">
   <p>This book is free. To whom to appoint?</p>
+  <form th:method="PATCH" th:action="@{/books/{id}/link(id=${book.getId()})}">
+    <label for="personId">Choose person:</label>
+    <select th:object="${book}" th:field="*{personId}" id="personId">
+      <option th:each="person : ${people}" th:value="${person.getId()}"
+              th:text="${person.getFullName()}"></option>
+    </select>
+
+    <input type="submit" value="Link book"/>
+  </form>
+
 </div>
 <div th:if="${book.getPersonId()}">
   <p th:text="'The book is now: ' + ${person.getFullName()}" ></p>
-  <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}">
+  <form th:method="PATCH" th:action="@{/books/{id}/unlink(id=${book.getId()})}">
     <input type="submit" value="Release the book"/>
   </form>
 </div>
