@@ -6,9 +6,10 @@ create table if not exists Person (
   year int not null
 );
 
-insert into Person (full_name, year) values ('FIO', 1997);
-insert into Person (full_name, year) values ('BAI', 1997);
-insert into Person (full_name, year) values ('ARA', 1997);
+insert into Person (full_name, year) values
+('FIO', 1997),
+('BAI', 1997),
+('ARA', 1997);
 
 drop table if exists Book;
 
@@ -20,4 +21,7 @@ create table if not exists Book (
   person_id int references person(id) on delete set null
 );
 
-
+insert into Book (name, author, year, person_id) values
+('Bacho', 'KidsAuthor', 1970, 1),
+('Test', 'GIA', 2014, 1),
+('Test2', 'KidsAuthor', 1970, 1);
