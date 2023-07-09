@@ -26,7 +26,7 @@ public class PersonValidator implements Validator {
   public void validate(Object target, Errors errors) {
     if (target instanceof Person) {
       Person person = (Person) target;
-      if (personDAO.getPersonByFullName(((Person) target).getFullName()).isPresent()) {
+      if (personDAO.getPersonByFullName(person.getFullName()).isPresent()) {
         errors.rejectValue("fullName", null, "ФИО должно быть уникальным");
       }
     }

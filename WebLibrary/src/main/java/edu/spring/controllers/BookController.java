@@ -91,14 +91,13 @@ public class BookController {
   @PatchMapping("/{id}/unlink")
   public String unlinkBook(@PathVariable("id") int id) {
     bookDAO.unlinkBookById(id);
-    return "redirect:/books";
+    return "redirect:/books/" + id;
   }
 
   @PatchMapping("/{id}/link")
   public String linkBook(@PathVariable("id") int id, @ModelAttribute("book") Book book) {
     bookDAO.linkBookById(id, book.getPersonId());
-    return "redirect:/books";
+    return "redirect:/books/" + id;
   }
-
 
 }
