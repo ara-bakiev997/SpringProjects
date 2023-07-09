@@ -1,7 +1,6 @@
 package edu.spring.dao;
 
 import edu.spring.models.Book;
-import edu.spring.models.Person;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -19,7 +18,7 @@ public class BookDAO {
   }
 
   public List<Book> getBooks() {
-    List<Book> books = jdbcTemplate.query("select * from book;",
+    List<Book> books = jdbcTemplate.query("select * from book order by id;",
         new BeanPropertyRowMapper<>(Book.class));
     return books;
   }

@@ -18,7 +18,7 @@ public class PersonDAO {
   }
 
   public List<Person> getPeople() {
-    return jdbcTemplate.query("select * from person;", new BeanPropertyRowMapper<>(Person.class));
+    return jdbcTemplate.query("select * from person order by id;", new BeanPropertyRowMapper<>(Person.class));
   }
 
   public Person getPersonById(int id) {

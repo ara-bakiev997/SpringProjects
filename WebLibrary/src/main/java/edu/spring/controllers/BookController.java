@@ -4,10 +4,11 @@ package edu.spring.controllers;
 import edu.spring.dao.BookDAO;
 import edu.spring.dao.PersonDAO;
 import edu.spring.models.Book;
-import edu.spring.models.Person;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -55,7 +56,11 @@ public class BookController {
   }
 
   @PostMapping()
-  public String save(@ModelAttribute("book") Book book) {
+  public String save(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+      return "/books/new";
+    }
+
     bookDAO.save(book);
     return "redirect:/books";
   }
@@ -67,7 +72,12 @@ public class BookController {
   }
 
   @PatchMapping("/{id}")
-  public String update(@PathVariable("id") int id, @ModelAttribute("book") Book book) {
+  public String update(@PathVariable("id") int id, @ModelAttribute("book") @Valid Book book,
+      BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+      return "/books/edit";
+    }
+
     bookDAO.update(id, book);
     return "redirect:/books";
   }

@@ -2,16 +2,15 @@ package edu.spring.controllers;
 
 import edu.spring.dao.BookDAO;
 import edu.spring.dao.PersonDAO;
-import edu.spring.models.Book;
 import edu.spring.models.Person;
-import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,7 +48,12 @@ public class PersonController {
   }
 
   @PostMapping()
-  public String save(@ModelAttribute("person") Person person) {
+  public String save(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+
+    if (bindingResult.hasErrors()) {
+      return "/people/new";
+    }
+
     personDAO.save(person);
     return "redirect:/people";
   }
@@ -61,7 +65,13 @@ public class PersonController {
   }
 
   @PutMapping("/{id}") // or PatchMapping
-  public String update(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
+  public String update(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person,
+      BindingResult bindingResult) {
+
+    if (bindingResult.hasErrors()) {
+      return "/people/edit";
+    }
+
     personDAO.update(id, person);
     return "redirect:/people";
   }
