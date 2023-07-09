@@ -11,6 +11,8 @@
 
 # Демонстрация работы
 
+https://github.com/ara-bakiev997/SpringProjects/assets/106027588/7f95b78e-424b-46c5-8764-b2d88505fc13
+
 
 # Структура проекта
 
