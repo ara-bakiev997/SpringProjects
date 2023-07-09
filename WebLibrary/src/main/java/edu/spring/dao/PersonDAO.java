@@ -2,6 +2,7 @@ package edu.spring.dao;
 
 import edu.spring.models.Person;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,13 +19,20 @@ public class PersonDAO {
   }
 
   public List<Person> getPeople() {
-    return jdbcTemplate.query("select * from person order by id;", new BeanPropertyRowMapper<>(Person.class));
+    return jdbcTemplate.query("select * from person order by id;",
+        new BeanPropertyRowMapper<>(Person.class));
   }
 
   public Person getPersonById(int id) {
     return jdbcTemplate.queryForObject("select * from person where id = ?;",
         new BeanPropertyRowMapper<>(
             Person.class), id);
+  }
+
+  public Optional<Person> getPersonByFullName(String fullName) {
+    return jdbcTemplate.query("select * from Person where full_name = ?",
+        new BeanPropertyRowMapper<>(
+            Person.class), fullName).stream().findAny();
   }
 
   public void save(Person person) {
