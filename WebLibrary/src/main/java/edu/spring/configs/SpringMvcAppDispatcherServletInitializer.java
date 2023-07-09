@@ -35,13 +35,15 @@ public class SpringMvcAppDispatcherServletInitializer extends
   }
 
   private void registerCharacterEncodingFilter(ServletContext aContext) {
-    EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
+    EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST,
+        DispatcherType.FORWARD);
 
     CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
     characterEncodingFilter.setEncoding("UTF-8");
     characterEncodingFilter.setForceEncoding(true);
 
-    FilterRegistration.Dynamic characterEncoding = aContext.addFilter("characterEncoding", characterEncodingFilter);
+    FilterRegistration.Dynamic characterEncoding = aContext.addFilter("characterEncoding",
+        characterEncodingFilter);
     characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
   }
 

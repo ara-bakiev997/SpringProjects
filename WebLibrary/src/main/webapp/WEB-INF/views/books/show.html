@@ -21,7 +21,7 @@
 
 </div>
 <div th:if="${book.getPersonId()}">
-  <p th:text="'Это книга сейчас у: ' + ${person.getFullName()}" ></p>
+  <p th:text="'Это книга сейчас у: ' + ${person.getFullName()}"></p>
   <form th:method="PATCH" th:action="@{/books/{id}/unlink(id=${book.getId()})}">
     <input type="submit" value="Освободить книгу"/>
   </form>
