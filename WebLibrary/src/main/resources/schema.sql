@@ -6,6 +6,11 @@ create table if not exists Person (
   year int not null
 );
 
+insert into person (full_name, year) values
+('Иванов Иван Иванович', 1970),
+('Петров Петр Петрович', 1960),
+('Алексеев Алексей Алексеевич', 1989);
+
 drop table if exists Book cascade;
 
 create table if not exists Book (
@@ -15,3 +20,8 @@ create table if not exists Book (
   year int not null,
   person_id int references person(id) on delete set null
 );
+
+insert into Book (name, author, year) values
+('Над пропастью во ржи', 'Джером Сэлиджер', 1951),
+('День опричника', 'Владимир Сорокин', 2006),
+('Тайные виды на гору Фудзи', 'Владимир Пелевин', 2018);
