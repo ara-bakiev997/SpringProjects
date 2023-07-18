@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Обновление человека</title>
+</head>
+<body>
+    <form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+        <label for="fullName">Введите ФИО:</label>
+        <input id="fullName" type="text" th:field="*{fullName}"/>
+        <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Full name error</div>
+        <br>
+        <label for="yearOfBirth">Введите год рождения:</label>
+        <input id="yearOfBirth" type="text" th:field="*{yearOfBirth}"/>
+        <div style="color:red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Year of birth error</div>
+
+        <br>
+        <input type="submit" value="Обновить!"/>
+    </form>
+</body>
+</html>
