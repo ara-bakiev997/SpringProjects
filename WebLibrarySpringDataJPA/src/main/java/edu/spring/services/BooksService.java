@@ -31,4 +31,9 @@ public class BooksService {
     public void update(Book book) {
         booksRepository.save(book);
     }
+
+    @Transactional
+    public void deleteById(int id) {
+        booksRepository.deleteById(id);
+    }
 }
