@@ -3,6 +3,7 @@ package edu.spring.controllers;
 
 import edu.spring.models.Person;
 import edu.spring.services.PeopleService;
+import edu.spring.utils.PersonValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private final PeopleService peopleService;
+    private final PersonValidator personValidator;
 
     @GetMapping
     public String index(Model model) {
@@ -31,6 +33,7 @@ public class PeopleController {
 
     @PostMapping
     public String save(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/people/new";
         }
@@ -53,6 +56,7 @@ public class PeopleController {
     @PatchMapping("/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult) {
+        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/people/edit";
         }

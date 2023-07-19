@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -35,5 +36,9 @@ public class PeopleService {
     @Transactional
     public void deleteById(int id) {
         peopleRepository.deleteById(id);
+    }
+
+    public Optional<Person> findByFullName(String fullName) {
+     return peopleRepository.findByFullName(fullName);
     }
 }

@@ -2,6 +2,7 @@ package edu.spring.controllers;
 
 import edu.spring.models.Book;
 import edu.spring.services.BooksService;
+import edu.spring.utils.BookValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class BooksController {
     private final BooksService booksService;
+    private final BookValidator bookValidator;
 
     @GetMapping
     public String index(Model model) {
@@ -29,6 +31,7 @@ public class BooksController {
 
     @PostMapping
     public String save(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+        bookValidator.validate(book, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/books/new";
         }
@@ -51,6 +54,7 @@ public class BooksController {
     @PutMapping("/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("book") @Valid Book book,
                          BindingResult bindingResult) {
+        bookValidator.validate(book, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/books/edit";
         }
