@@ -26,4 +26,9 @@ public class BooksService {
     public Book findById(int id) {
         return booksRepository.findById(id).orElse(null);
     }
+
+    @Transactional
+    public void update(Book book) {
+        booksRepository.save(book);
+    }
 }

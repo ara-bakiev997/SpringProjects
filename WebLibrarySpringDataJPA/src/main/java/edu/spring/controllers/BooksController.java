@@ -39,11 +39,24 @@ public class BooksController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", booksService.findById(id));
-        return "books/show";
+        return "/books/show";
     }
 
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("book", booksService.findById(id));
+        return "/books/edit";
+    }
 
-
+    @PutMapping("/{id}")
+    public String update(@PathVariable("id") int id, @ModelAttribute("book") @Valid Book book,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/books/edit";
+        }
+        booksService.update(book);
+        return "redirect:/books";
+    }
 
 
 }

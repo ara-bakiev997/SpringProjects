@@ -5,7 +5,14 @@
     <title>Страница книги</title>
 </head>
 <body>
-    <p th:text="${book.getName() + ', ' + book.getYear()}">book</p>
+    <p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</p>
+
+    <hr>
+    <form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
+        <input type="submit" value="Обновить книгу">
+    </form>
+
+
 
 
 </body>
