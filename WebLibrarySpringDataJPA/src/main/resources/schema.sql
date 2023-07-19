@@ -7,6 +7,11 @@ create table if not exists Person
     year_of_birth int check (year_of_birth > 0)
 );
 
+insert into person (full_name, year_of_birth)
+values ('Иванов Иван Иванович', 1970),
+       ('Петров Петр Петрович', 1960),
+       ('Алексеев Алексей Алексеевич', 1989);
+
 drop table if exists Book cascade;
 
 create table if not exists Book
@@ -17,3 +22,8 @@ create table if not exists Book
     year      int check (year > 0),
     person_id int     references Person (id) on delete set null
 );
+
+insert into Book (name, author, year)
+values ('Над пропастью во ржи', 'Джером Сэлиджер', 1951),
+       ('День опричника', 'Владимир Сорокин', 2006),
+       ('Тайные виды на гору Фудзи', 'Владимир Пелевин', 2018);

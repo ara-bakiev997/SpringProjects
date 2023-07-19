@@ -1,6 +1,8 @@
 package edu.spring.services;
 
+import edu.spring.models.Book;
 import edu.spring.models.Person;
+import edu.spring.repositories.BooksRepository;
 import edu.spring.repositories.PeopleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PeopleService {
     private final PeopleRepository peopleRepository;
+    private final BooksRepository booksRepository;
 
     public List<Person> findAll() {
         return peopleRepository.findAll();
@@ -39,6 +42,10 @@ public class PeopleService {
     }
 
     public Optional<Person> findByFullName(String fullName) {
-     return peopleRepository.findByFullName(fullName);
+        return peopleRepository.findByFullName(fullName);
+    }
+
+    public List<Book> findBooksByPersonId(int id) {
+        return booksRepository.findAllByOwnerId(id);
     }
 }

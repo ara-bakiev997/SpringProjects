@@ -3,6 +3,7 @@ package edu.spring.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -33,6 +34,7 @@ public class Person {
 
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
+    @ToString.Exclude
     private List<Book> books;
 
 }

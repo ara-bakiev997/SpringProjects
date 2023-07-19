@@ -1,6 +1,7 @@
 package edu.spring.controllers;
 
 import edu.spring.models.Book;
+import edu.spring.models.Person;
 import edu.spring.services.BooksService;
 import edu.spring.utils.BookValidator;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +41,14 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
+    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
         model.addAttribute("book", booksService.findById(id));
+        Book book = booksService.findById(id);
+        if (book.getOwner() != null) {
+            model.addAttribute("owner", book.getOwner());
+        } else {
+            model.addAttribute("people", booksService.findAllPerson());
+        }
         return "/books/show";
     }
 
@@ -66,6 +73,20 @@ public class BooksController {
     public String delete(@PathVariable("id") int id) {
         booksService.deleteById(id);
         return "redirect:/books";
+    }
+
+    @PatchMapping("/{id}/link")
+    public String link(@ModelAttribute("book") Book book, @ModelAttribute("person") Person person) {
+        book.setOwner(person);
+        booksService.update(book);
+        return "redirect:/books/{id}";
+    }
+
+    @PatchMapping("/{id}/unlink")
+    public String unlink(@ModelAttribute("book") Book book) {
+        book.setOwner(null);
+        booksService.update(book);
+        return "redirect:/books/{id}";
     }
 
 

@@ -3,6 +3,7 @@ package edu.spring.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Pattern;
 @Entity
 @Table(name = "Book")
 @Data
+@ToString(of = {"id", "name", "author", "year"})
 @NoArgsConstructor
 public class Book {
     @Id
