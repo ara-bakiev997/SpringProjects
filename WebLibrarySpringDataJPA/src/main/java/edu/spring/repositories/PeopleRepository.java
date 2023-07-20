@@ -10,5 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface PeopleRepository extends JpaRepository<Person, Integer> {
+    List<Person> findAllByOrderById();
     Optional<Person> findByFullName(String fullName);
 }

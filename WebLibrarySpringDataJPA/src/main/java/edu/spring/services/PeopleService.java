@@ -48,4 +48,8 @@ public class PeopleService {
     public List<Book> findBooksByPersonId(int id) {
         return booksRepository.findAllByOwnerId(id);
     }
+
+    public List<Person> findAllByOrderById() {
+        return peopleRepository.findAllByOrderById();
+    }
 }

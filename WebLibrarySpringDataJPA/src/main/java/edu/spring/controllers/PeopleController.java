@@ -25,7 +25,7 @@ public class PeopleController {
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("people", peopleService.findAll());
+        model.addAttribute("people", peopleService.findAllByOrderById());
         return "/people/index";
     }
 

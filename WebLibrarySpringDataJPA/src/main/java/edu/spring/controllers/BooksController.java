@@ -21,7 +21,7 @@ public class BooksController {
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("books", booksService.findAll());
+        model.addAttribute("books", booksService.findAllByOrderById());
         return "/books/index";
     }
 
@@ -42,8 +42,8 @@ public class BooksController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
-        model.addAttribute("book", booksService.findById(id));
         Book book = booksService.findById(id);
+        model.addAttribute("book", book);
         if (book.getOwner() != null) {
             model.addAttribute("owner", book.getOwner());
         } else {
@@ -76,14 +76,16 @@ public class BooksController {
     }
 
     @PatchMapping("/{id}/link")
-    public String link(@ModelAttribute("book") Book book, @ModelAttribute("person") Person person) {
+    public String link(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
+        Book book = booksService.findById(id);
         book.setOwner(person);
         booksService.update(book);
         return "redirect:/books/{id}";
     }
 
     @PatchMapping("/{id}/unlink")
-    public String unlink(@ModelAttribute("book") Book book) {
+    public String unlink(@PathVariable("id") int id) {
+        Book book = booksService.findById(id);
         book.setOwner(null);
         booksService.update(book);
         return "redirect:/books/{id}";
