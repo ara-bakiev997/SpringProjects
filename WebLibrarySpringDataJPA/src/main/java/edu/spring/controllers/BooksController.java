@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/books")
@@ -100,6 +101,15 @@ public class BooksController {
         book.setOwner(null);
         booksService.update(book);
         return "redirect:/books/{id}";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "search_template", required = false) String searchTemplate, Model model) {
+        if (searchTemplate != null) {
+            Book book = booksService.findByNameStartingWith(searchTemplate);
+            model.addAttribute("book", book);
+        }
+        return "/books/search";
     }
 
 
