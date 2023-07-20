@@ -20,8 +20,13 @@ public class BooksController {
     private final BookValidator bookValidator;
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("books", booksService.findAllByOrderById());
+    public String index(Model model, @RequestParam(value = "page", required = false) Integer page,
+                        @RequestParam(value = "books_per_page", required = false) Integer booksPerPage) {
+        if (page == null || booksPerPage == null) {
+            model.addAttribute("books", booksService.findAllByOrderById());
+        } else {
+            model.addAttribute("books", booksService.findAllByOrderByIdAndPaging(page, booksPerPage));
+        }
         return "/books/index";
     }
 

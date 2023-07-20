@@ -5,6 +5,8 @@ import edu.spring.models.Person;
 import edu.spring.repositories.BooksRepository;
 import edu.spring.repositories.PeopleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,5 +48,9 @@ public class BooksService {
 
     public List<Book> findAllByOrderById() {
         return booksRepository.findAllByOrderById();
+    }
+
+    public List<Book> findAllByOrderByIdAndPaging(Integer page, Integer booksPerPage) {
+        return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("id"))).getContent();
     }
 }
