@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 @Entity
 @Table(name = "Book")
@@ -35,8 +36,15 @@ public class Book {
     @Min(value = 0, message = "Год создания книги не может быть меньше 0")
     private int year;
 
+    @Column(name = "date_of_taking")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateOfTaking;
+
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person owner;
 
+    @Transient
+    private boolean isOverdue;
 }
+

@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/books")
@@ -89,17 +88,13 @@ public class BooksController {
 
     @PatchMapping("/{id}/link")
     public String link(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
-        Book book = booksService.findById(id);
-        book.setOwner(person);
-        booksService.update(book);
+        booksService.linkBookWithPerson(id, person);
         return "redirect:/books/{id}";
     }
 
     @PatchMapping("/{id}/unlink")
     public String unlink(@PathVariable("id") int id) {
-        Book book = booksService.findById(id);
-        book.setOwner(null);
-        booksService.update(book);
+        booksService.unlinkBookWithPerson(id);
         return "redirect:/books/{id}";
     }
 

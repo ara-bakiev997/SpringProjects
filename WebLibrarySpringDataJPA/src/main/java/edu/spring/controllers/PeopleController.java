@@ -1,9 +1,7 @@
 package edu.spring.controllers;
 
 
-import edu.spring.models.Book;
 import edu.spring.models.Person;
-import edu.spring.services.BooksService;
 import edu.spring.services.PeopleService;
 import edu.spring.utils.PersonValidator;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/people")

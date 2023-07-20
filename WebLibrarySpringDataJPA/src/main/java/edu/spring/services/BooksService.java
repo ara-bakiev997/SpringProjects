@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -65,4 +66,22 @@ public class BooksService {
     public Book findByNameStartingWith(String startingWith) {
         return booksRepository.findByNameStartingWith(startingWith);
     }
+
+    @Transactional
+    public void linkBookWithPerson(int bookId, Person person) {
+        Book book = booksRepository.findById(bookId).orElseThrow();
+        book.setOwner(person);
+        book.setDateOfTaking(new Date());
+        update(book);
+    }
+
+    @Transactional
+    public void unlinkBookWithPerson(int bookId) {
+        Book book = booksRepository.findById(bookId).orElseThrow();
+        book.setOwner(null);
+        book.setDateOfTaking(null);
+        book.setOverdue(false);
+        update(book);
+    }
+
 }

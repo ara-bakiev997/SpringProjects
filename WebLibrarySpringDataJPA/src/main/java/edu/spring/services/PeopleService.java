@@ -8,6 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +50,19 @@ public class PeopleService {
     }
 
     public List<Book> findBooksByPersonId(int id) {
-        return booksRepository.findAllByOwnerId(id);
+        List<Book> books = booksRepository.findAllByOwnerId(id);
+        for (Book book : books) {
+            if (book.getDateOfTaking() != null) {
+                int days = Period.between(book.getDateOfTaking().toInstant()
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate(),
+                        LocalDate.now(ZoneId.systemDefault())).getDays();
+                if (days > 10) {
+                    book.setOverdue(true);
+                }
+            }
+        }
+        return books;
     }
 
     public List<Person> findAllByOrderById() {
