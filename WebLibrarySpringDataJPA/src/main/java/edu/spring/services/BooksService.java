@@ -53,4 +53,12 @@ public class BooksService {
     public List<Book> findAllByOrderByIdAndPaging(Integer page, Integer booksPerPage) {
         return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("id"))).getContent();
     }
+
+    public List<Book> findAllByPagingAndSortingByYear(Integer page, Integer booksPerPage) {
+        return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("year"))).getContent();
+    }
+
+    public List<Book> findAllBySortingByYear() {
+        return booksRepository.findAll(Sort.by("year"));
+    }
 }
