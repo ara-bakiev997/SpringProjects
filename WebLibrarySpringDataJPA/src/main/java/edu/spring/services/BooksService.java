@@ -34,7 +34,11 @@ public class BooksService {
     }
 
     @Transactional
-    public void update(Book book) {
+    public void update(int id, Book book) {
+        Book bookToBeUpdated = booksRepository.findById(id).get();
+
+        book.setId(id);
+        book.setOwner(bookToBeUpdated.getOwner());
         booksRepository.save(book);
     }
 
@@ -63,25 +67,26 @@ public class BooksService {
         return booksRepository.findAll(Sort.by("year"));
     }
 
-    public Book findByNameStartingWith(String startingWith) {
+    public List<Book> findByNameStartingWith(String startingWith) {
         return booksRepository.findByNameStartingWith(startingWith);
     }
 
     @Transactional
     public void linkBookWithPerson(int bookId, Person person) {
-        Book book = booksRepository.findById(bookId).orElseThrow();
-        book.setOwner(person);
-        book.setDateOfTaking(new Date());
-        update(book);
+        booksRepository.findById(bookId).ifPresent(book -> {
+            book.setOwner(person);
+            book.setDateOfTaking(new Date());
+        });
     }
 
     @Transactional
     public void unlinkBookWithPerson(int bookId) {
-        Book book = booksRepository.findById(bookId).orElseThrow();
-        book.setOwner(null);
-        book.setDateOfTaking(null);
-        book.setOverdue(false);
-        update(book);
+        // Можно выставить новые значения так как, объект находится в persistent context
+        booksRepository.findById(bookId).ifPresent(book -> {
+            book.setOwner(null);
+            book.setDateOfTaking(null);
+            book.setOverdue(false);
+        });
     }
 
 }

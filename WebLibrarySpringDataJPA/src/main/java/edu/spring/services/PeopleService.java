@@ -36,7 +36,8 @@ public class PeopleService {
     }
 
     @Transactional
-    public void update(Person person) {
+    public void update(int id, Person person) {
+        person.setId(id);
         peopleRepository.save(person);
     }
 
