@@ -9,14 +9,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class SensorToDtoConvertor {
+public class SensorConvertor {
+
     @Nonnull
-    public SensorDto sensorToDto(@Nonnull final Sensor sensor) {
+    public SensorDto convertSensorToDto(@Nonnull final Sensor sensor) {
         return new SensorDto(sensor.getId(), sensor.getName());
     }
 
     @Nonnull
-    public List<SensorDto> sensorsToDtoList(@Nonnull final List<Sensor> sensors) {
-        return sensors.stream().map(this::sensorToDto).collect(Collectors.toList());
+    public List<SensorDto> convertSensorsToDtos(@Nonnull final List<Sensor> sensors) {
+        return sensors.stream().map(this::convertSensorToDto).collect(Collectors.toList());
     }
 }

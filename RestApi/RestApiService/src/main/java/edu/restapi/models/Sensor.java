@@ -1,16 +1,21 @@
 package edu.restapi.models;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import java.util.List;
 
 @Entity
-@Table(name = "Sensor", schema = "rest_api")
+@Table(name = "sensors")
+@Getter
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
 public class Sensor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +24,4 @@ public class Sensor {
 
     @Column(name = "name")
     private String name;
-
-    @OneToMany(mappedBy = "sensor")
-    @ToString.Exclude
-    private List<Measuring> measurements;
 }

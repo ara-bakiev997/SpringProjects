@@ -1,6 +1,6 @@
 package edu.restapi.controllers;
 
-import edu.restapi.aggregators.SensorsAggregator;
+import edu.restapi.aggregators.SensorAggregator;
 import edu.restapi.dtos.SensorDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +12,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/sensors")
 @AllArgsConstructor
-public class SensorsController {
-    private final SensorsAggregator sensorsAggregator;
+public class SensorController {
+    private final SensorAggregator sensorAggregator;
 
     @GetMapping
-    public List<SensorDto> getAllSensors() {
-        return sensorsAggregator.getAllSensors();
+    public List<SensorDto> sensors() {
+        return sensorAggregator.getAllSensors();
     }
+
 }
