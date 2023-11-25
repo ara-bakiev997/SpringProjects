@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class SensorDto {
-    private int id;
+    private int sensorId;
     @Nonnull
     private String name;
 }

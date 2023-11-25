@@ -13,7 +13,7 @@ public class SensorConvertor {
 
     @Nonnull
     public SensorDto convertSensorToDto(@Nonnull final Sensor sensor) {
-        return new SensorDto(sensor.getId(), sensor.getName());
+        return new SensorDto(sensor.getSensorId(), sensor.getName());
     }
 
     @Nonnull

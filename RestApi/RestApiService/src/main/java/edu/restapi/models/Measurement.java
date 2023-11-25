@@ -5,29 +5,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-
 @Entity
-@Table(name = "sensors")
+@Table(name = "measurements")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Sensor {
+public class Measurement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sensor_id")
-    private int sensorId;
+    @Column(name = "measurement_id")
+    private int measurementId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "reining")
+    private boolean raining;
 
-    @OneToMany(mappedBy = "sensor")
-    private List<Measurement> measurements;
+    @ManyToOne
+    @JoinColumn(name = "sensor_id", referencedColumnName = "sensor_id")
+    private Sensor sensor;
 }
