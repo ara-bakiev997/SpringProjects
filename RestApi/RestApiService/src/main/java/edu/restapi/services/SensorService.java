@@ -19,4 +19,9 @@ public class SensorService {
     public List<Sensor> getAllSensors() {
         return sensorRepository.findAll();
     }
+
+    @Transactional
+    public void save(@Nonnull final Sensor sensor) {
+        sensorRepository.save(sensor);
+    }
 }

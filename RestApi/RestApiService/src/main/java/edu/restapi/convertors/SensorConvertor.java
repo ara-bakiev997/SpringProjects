@@ -13,11 +13,16 @@ public class SensorConvertor {
 
     @Nonnull
     public SensorDto convertSensorToDto(@Nonnull final Sensor sensor) {
-        return new SensorDto(sensor.getSensorId(), sensor.getName());
+        return new SensorDto(sensor.getName());
     }
 
     @Nonnull
     public List<SensorDto> convertSensorsToDtos(@Nonnull final List<Sensor> sensors) {
         return sensors.stream().map(this::convertSensorToDto).collect(Collectors.toList());
+    }
+
+    @Nonnull
+    public Sensor convertDtoToSensor(@Nonnull final SensorDto sensorDto) {
+       return new Sensor(sensorDto.getName());
     }
 }

@@ -21,4 +21,8 @@ public class SensorAggregator {
                 sensorService.getAllSensors()
         );
     }
+
+    public void registration(@Nonnull final SensorDto sensorDto) {
+        sensorService.save(sensorConvertor.convertDtoToSensor(sensorDto));
+    }
 }
