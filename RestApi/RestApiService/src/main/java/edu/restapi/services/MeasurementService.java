@@ -1,7 +1,9 @@
 package edu.restapi.services;
 
 import edu.restapi.models.Measurement;
+import edu.restapi.models.Sensor;
 import edu.restapi.repositories.MeasurementRepository;
+import edu.restapi.repositories.SensorRepository;
 import jakarta.annotation.Nonnull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MeasurementService {
     private final MeasurementRepository measurementRepository;
+    private final SensorRepository sensorRepository;
 
     @Nonnull
     public List<Measurement> getAllMeasurements() {
@@ -21,6 +24,8 @@ public class MeasurementService {
 
     @Transactional
     public void save(@Nonnull final Measurement measurement) {
+        final Sensor sensor = sensorRepository.findByName(measurement.getSensor().getName());
+        measurement.setSensor(sensor);
         measurementRepository.save(measurement);
     }
 

@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "measurements")
@@ -33,8 +34,9 @@ public class Measurement {
     @Nonnull
     private Boolean raining;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "sensor_id", referencedColumnName = "sensor_id")
+    @Setter
     @Nonnull
     private Sensor sensor;
 }
