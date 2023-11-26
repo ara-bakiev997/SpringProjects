@@ -26,4 +26,7 @@ public class MeasurementAggregator {
         measurementService.save(measurementConvertor.convertDtoToMeasurement(measurementDto));
     }
 
+    public int getRainyDaysCount() {
+        return measurementService.getRainyDaysCount();
+    }
 }

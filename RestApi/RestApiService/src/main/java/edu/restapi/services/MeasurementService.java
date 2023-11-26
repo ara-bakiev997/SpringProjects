@@ -4,6 +4,7 @@ import edu.restapi.models.Measurement;
 import edu.restapi.models.Sensor;
 import edu.restapi.repositories.MeasurementRepository;
 import edu.restapi.repositories.SensorRepository;
+import edu.restapi.utils.exceptions.SensorException;
 import jakarta.annotation.Nonnull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,13 @@ public class MeasurementService {
 
     @Transactional
     public void save(@Nonnull final Measurement measurement) {
-        final Sensor sensor = sensorRepository.findByName(measurement.getSensor().getName());
+        final Sensor sensor = sensorRepository.findByName(measurement.getSensor().getName())
+                                              .orElseThrow(SensorException::new);
         measurement.setSensor(sensor);
         measurementRepository.save(measurement);
     }
 
+    public int getRainyDaysCount() {
+        return measurementRepository.countMeasurementByRainingIsTrue();
+    }
 }

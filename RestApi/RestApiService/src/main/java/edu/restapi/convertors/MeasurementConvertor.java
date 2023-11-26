@@ -32,7 +32,7 @@ public class MeasurementConvertor {
     public Measurement convertDtoToMeasurement(@Nonnull final MeasurementDto measurementDto) {
         return new Measurement(
                 measurementDto.getValue(),
-                measurementDto.isRaining(),
+                measurementDto.getRaining(),
                 sensorConvertor.convertDtoToSensor(measurementDto.getSensor())
         );
     }

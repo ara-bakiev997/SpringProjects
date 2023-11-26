@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,5 +24,10 @@ public class SensorService {
     @Transactional
     public void save(@Nonnull final Sensor sensor) {
         sensorRepository.save(sensor);
+    }
+
+    @Nonnull
+    public Optional<Sensor> findByName(@Nonnull final String name) {
+        return sensorRepository.findByName(name);
     }
 }
