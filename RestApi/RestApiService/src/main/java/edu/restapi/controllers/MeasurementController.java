@@ -52,6 +52,11 @@ public class MeasurementController {
         measurementAggregator.add(measurementDto);
     }
 
+    @PostMapping("/addMany")
+    public void addMany(@RequestBody final List<MeasurementDto> measurements) {
+        measurementAggregator.addMany(measurements);
+    }
+
     @GetMapping("/rainyDaysCount")
     public int getRainyDaysCount() {
         return measurementAggregator.getRainyDaysCount();

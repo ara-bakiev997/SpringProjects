@@ -36,4 +36,13 @@ public class MeasurementConvertor {
                 sensorConvertor.convertDtoToSensor(measurementDto.getSensor())
         );
     }
+
+    @Nonnull
+    public List<Measurement> convertDtosToMeasurements(@Nonnull final List<MeasurementDto> measurementDtos) {
+        return measurementDtos.stream().map(this::convertDtoToMeasurement).collect(Collectors.toList());
+    }
+
+    {
+
+    }
 }

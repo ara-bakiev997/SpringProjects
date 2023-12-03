@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -29,6 +30,25 @@ public class MeasurementService {
                                               .orElseThrow(SensorException::new);
         measurement.setSensor(sensor);
         measurementRepository.save(measurement);
+    }
+
+    @Transactional
+    public void saveAll(@Nonnull final List<Measurement> measurements) {
+        if (Objects.nonNull(measurements)
+            &&
+            !measurements.isEmpty()) {
+            final Sensor sensor = sensorRepository.findByName(measurements.get(0).getSensor().getName())
+                                                  .orElseThrow(SensorException::new);
+//            measurementRepository.saveAll(measurements
+//                    .stream()
+//                    .peek(measurement -> measurement.setSensor(sensor))
+//                    .collect(Collectors.toList())
+//            );
+            measurements.forEach(measurement -> {
+                measurement.setSensor(sensor);
+                measurementRepository.save(measurement);
+            });
+        }
     }
 
     public int getRainyDaysCount() {
